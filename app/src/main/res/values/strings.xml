@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">HoangCV2_Assiagnment</string>
+    <string name="textView_home_title">Shop Your Daily Necessary</string>
+    <string name="customview_button_home_title">Get Started</string>
+    <string name="customview_button_detail_title">Add to cart</string>
+    <string name="customview_item_fruitsTitle">Fruits</string>
+    <string name="customview_item_vegetablesTitle">Vegetables</string>
+    <string name="customview_item_drinksTitle">Drinks</string>
+    <string name="customview_product_tomatoTitle">Tomato</string>
+    <string name="customview_product_tomatoPrice">$1.50</string>
+    <string name="customview_product_tomatoPriceByKg">$1.50 /Kg</string>
+    <string name="customview_product_pumpkinsTitle">Pumkins</string>
+    <string name="customview_product_pumpkinsPrice">$1.50</string>
+    <string name="textView_categories">Categories</string>
+    <string name="textView_topproduct">Top Product</string>
+    <string name="textView_seeall">See All</string>
+    <string name="textView_relateditem">Related Item</string>
+    <string name="textView_description">Tometo is It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textView_button_size">20dp</dimen>
+    <dimen name="imageView_home_marginTop">100dp</dimen>
+    <dimen name="textView_home_marginTop">40dp</dimen>
+    <dimen name="textView_home_size">30sp</dimen>
+    <dimen name="textView_home_width">258dp</dimen>
+    <dimen name="customview_home_width">259dp</dimen>
+    <dimen name="customview_home_height">50dp</dimen>
+    <dimen name="customview_home_marginTop">50dp</dimen>
+    <dimen name="fragmentHome_marginLeft">30dp</dimen>
+    <dimen name="searchView_home_marginRight">50dp</dimen>
+    <dimen name="searchView_home_marginTop">80dp</dimen>
+    <dimen name="textView_categories_size">18sp</dimen>
+    <dimen name="textView_categories_marginTop">10dp</dimen>
+    <dimen name="customview_item_width">95dp</dimen>
+    <dimen name="customview_item_height">123dp</dimen>
+    <dimen name="customview_item_textSize">15sp</dimen>
+    <dimen name="bottomNavig_marginTop">60dp</dimen>
+    <dimen name="fragment_marginRight">30dp</dimen>
+    <dimen name="recyclerView_item_marginRight">30dp</dimen>
+    <dimen name="recyclerView_topproduct_marginTop">20dp</dimen>
+    <dimen name="recyclerView_product_marginTop">10dp</dimen>
+    <dimen name="textView_topproduct_size">20sp</dimen>
+    <dimen name="textView_seeall_size">15sp</dimen>
+    <dimen name="customview_product_width">149dp</dimen>
+    <dimen name="customview_product_height">160dp</dimen>
+    <dimen name="customview_product_marginLeft">60dp</dimen>
+    <dimen name="textView_descrpition_width">317dp</dimen>
+    <dimen name="textView_descrpition_height">100dp</dimen>
+    <dimen name="elegantNumber_marginLeft">70dp</dimen>
+    <dimen name="imageSlider_width">415dp</dimen>
+    <dimen name="imageSlider_height">245dp</dimen>
+    <dimen name="mainLayout_product_height">550dp</dimen>
+    <dimen name="txtTopProduct_home_marginTop">20dp</dimen>
+</resources>

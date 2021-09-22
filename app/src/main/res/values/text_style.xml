@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="customfontstyle">
+        <item name="android:fontFamily">@font/font_test</item>
+        <item name="android:textColor">#4CAF50</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textSize">@dimen/textView_seeall_size</item>
+    </style>
+
+</resources>

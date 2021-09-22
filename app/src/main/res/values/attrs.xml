@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyButton">
+        <attr name="Title" format="string" />
+        <attr name="Text_Color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="MyItem">
+        <attr name="Image_src" format="reference" />
+        <attr name="Size_item" format="dimension" />
+        <attr name="Title_item" format="string" />
+        <attr name="Title2_item" format="string" />
+        <attr name="Title3_item" format="string" />
+        <attr name="Price_item" format="string" />
+        <attr name="Price2_item" format="string" />
+        <attr name="Text_Color_item" format="color" />
+    </declare-styleable>
+</resources>

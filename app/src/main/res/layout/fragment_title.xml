@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imgViewHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/imageView_home_marginTop"
+        android:contentDescription="@string/customview_product_tomatoTitle"
+        android:src="@drawable/fruit_basket"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtHome"
+        android:layout_width="@dimen/textView_home_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/textView_home_marginTop"
+        android:text="@string/textView_home_title"
+        android:textAlignment="center"
+        android:textColor="#0FA956"
+        android:textSize="@dimen/textView_home_size"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgViewHome" />
+
+    <com.example.hoangcv2_assiagnment.customview.ButtonCustomView
+        android:id="@+id/btnHome"
+        android:layout_width="@dimen/customview_home_width"
+        android:layout_height="@dimen/customview_home_height"
+        android:layout_marginTop="@dimen/customview_home_marginTop"
+        android:background="@drawable/background_text"
+        app:Text_Color="#FFFFFF"
+        app:Title="@string/customview_button_home_title"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtHome" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

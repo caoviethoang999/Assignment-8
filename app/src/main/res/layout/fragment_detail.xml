@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/background_tomato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".fragment.DetailFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBarDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_tool2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.denzcoskun.imageslider.ImageSlider
+            android:id="@+id/image_slider"
+            android:layout_width="@dimen/imageSlider_width"
+            android:layout_height="@dimen/imageSlider_height"
+            app:iss_auto_cycle="true"
+            app:iss_period="1000"
+            app:iss_delay="0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBarDetail" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_product"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_slider">
+
+            <TextView
+                android:id="@+id/txtTomato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fragmentHome_marginLeft"
+                android:layout_marginTop="@dimen/txtTopProduct_home_marginTop"
+                android:text="@string/customview_product_tomatoTitle"
+                android:textColor="#D60013"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.example.hoangcv2_assiagnment.customview.ElegantNumber
+                android:id="@+id/elegantNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/elegantNumber_marginLeft"
+                android:layout_marginTop="@dimen/txtTopProduct_home_marginTop"
+                app:layout_constraintLeft_toRightOf="@id/txtTomato"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtPriceItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fragmentHome_marginLeft"
+                android:layout_marginTop="@dimen/txtTopProduct_home_marginTop"
+                android:text="@string/customview_product_tomatoPriceByKg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtTomato" />
+
+            <TextView
+                android:id="@+id/txtDescrip"
+                android:layout_width="@dimen/textView_descrpition_width"
+                android:layout_height="@dimen/textView_descrpition_height"
+                android:layout_marginStart="@dimen/fragmentHome_marginLeft"
+                android:layout_marginTop="@dimen/txtTopProduct_home_marginTop"
+                android:text="@string/textView_description"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPriceItem" />
+
+            <TextView
+                android:id="@+id/txtRelatedItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fragmentHome_marginLeft"
+                android:layout_marginTop="@dimen/txtTopProduct_home_marginTop"
+                android:text="@string/textView_relateditem"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtDescrip" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recylerViewProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/fragmentHome_marginLeft"
+                android:layout_marginTop="@dimen/textView_categories_marginTop"
+                android:layout_marginEnd="@dimen/fragment_marginRight"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtRelatedItem" />
+
+            <com.example.hoangcv2_assiagnment.customview.ButtonCustomView
+                android:id="@+id/btnAddCart"
+                android:layout_width="@dimen/customview_home_width"
+                android:layout_height="@dimen/customview_home_height"
+                android:layout_marginTop="@dimen/customview_home_marginTop"
+                android:background="@drawable/background_text"
+                app:Text_Color="#FFFFFF"
+                app:Title="@string/customview_button_detail_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recylerViewProduct" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
