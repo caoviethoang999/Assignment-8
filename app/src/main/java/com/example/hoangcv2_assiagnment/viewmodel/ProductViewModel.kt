@@ -17,13 +17,17 @@ class ProductViewModel constructor(private val mainRepository: ProductRepository
 
     var productList=MutableLiveData<MutableList<Product>>()
     var categoryList = MutableLiveData<MutableList<Category>>()
+    var errorMessage = MutableLiveData<String>()
     fun getProduct() {
         productList=mainRepository.getProduct()
+        errorMessage=mainRepository.handleError()
     }
     fun getCategory(){
         categoryList=mainRepository.getCategory()
+        errorMessage=mainRepository.handleError()
     }
     fun getProductByCategory(categoryId: Int) {
         productList = mainRepository.getProductByCategory(categoryId)
+        errorMessage=mainRepository.handleError()
     }
 }

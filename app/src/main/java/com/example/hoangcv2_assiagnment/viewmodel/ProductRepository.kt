@@ -9,12 +9,15 @@ import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import retrofit2.HttpException
 
 class ProductRepository constructor(private val productService: ProductService) {
 
     var productList= MutableLiveData<MutableList<Product>>()
 
     var categoryList = MutableLiveData<MutableList<Category>>()
+
+    var errorMessage = MutableLiveData<String>()
 
     fun getProduct():MutableLiveData<MutableList<Product>>{
         productService.getProduct()
@@ -29,7 +32,7 @@ class ProductRepository constructor(private val productService: ProductService) 
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("onError", e.localizedMessage)
+                    errorMessage.postValue(e.localizedMessage)
                 }
 
                 override fun onComplete() {
@@ -51,7 +54,10 @@ class ProductRepository constructor(private val productService: ProductService) 
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("onError", e.localizedMessage)
+                    if (e is HttpException) {
+                        val errorBody = e.response()?.errorBody()?.string()
+                        errorMessage.postValue(errorBody.toString())
+                    }
                 }
 
                 override fun onComplete() {
@@ -73,7 +79,11 @@ class ProductRepository constructor(private val productService: ProductService) 
                 }
 
                 override fun onError(e: Throwable) {
-                    Log.d("onError", e.localizedMessage)
+                    if (e is HttpException) {
+
+                        val errorBody = e.response()?.errorBody()?.string()
+                        errorMessage.postValue(errorBody.toString())
+                    }
                 }
 
                 override fun onComplete() {
@@ -81,5 +91,7 @@ class ProductRepository constructor(private val productService: ProductService) 
             })
         return productList
     }
-
+    fun handleError():MutableLiveData<String>{
+        return errorMessage
+    }
 }

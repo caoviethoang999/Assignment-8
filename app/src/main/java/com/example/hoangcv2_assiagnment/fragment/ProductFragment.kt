@@ -48,7 +48,7 @@ class ProductFragment : Fragment(),OnItemClickListener {
             )
         )
         if(title.equals("Vegetables")) {
-            viewModel.getProductByCategory(1)
+            viewModel.getProductByCategory(3)
             viewModel.productList.observe(viewLifecycleOwner, {
                 productAdapter.getAll(it)
                 recylerViewProduct.adapter = productAdapter

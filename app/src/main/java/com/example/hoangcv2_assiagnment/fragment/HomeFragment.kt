@@ -2,6 +2,7 @@ package com.example.hoangcv2_assiagnment.fragment
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -39,6 +40,7 @@ class HomeFragment : Fragment(), OnItemClickListener {
         toggle.syncState()
         addDataTopProduct()
         addDataCategoryItem()
+        errorResponse()
     }
 
     fun addDataTopProduct() {
@@ -73,6 +75,11 @@ class HomeFragment : Fragment(), OnItemClickListener {
             list=it
             categoryAdapter.getAll(list)
             recylerViewItem.adapter = categoryAdapter
+        })
+    }
+    fun errorResponse(){
+        viewModel.errorMessage.observe(viewLifecycleOwner,{
+            Toast.makeText(requireContext(),it, Toast.LENGTH_LONG).show()
         })
     }
 
