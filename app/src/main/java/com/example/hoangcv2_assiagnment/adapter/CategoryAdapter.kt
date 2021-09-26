@@ -12,8 +12,8 @@ import com.example.hoangcv2_assiagnment.model.Category
 import java.util.*
 
 
-class CategoryAdapter(var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
-    var list: MutableList<Category>
+class CategoryAdapter(private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
+    private var list: MutableList<Category>
     fun getAll(list: MutableList<Category>?) {
         this.list = list!!
     }

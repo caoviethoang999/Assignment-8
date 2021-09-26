@@ -16,8 +16,8 @@ import com.example.hoangcv2_assiagnment.model.Product
 import java.util.*
 
 
-class RelatedItemAdapter(var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RelatedItemAdapter.ItemViewHolder>() {
-    var list: MutableList<Product>
+class RelatedItemAdapter(private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RelatedItemAdapter.ItemViewHolder>() {
+    private var list: MutableList<Product>
     fun getAll(list: MutableList<Product>?) {
         this.list = list!!
     }

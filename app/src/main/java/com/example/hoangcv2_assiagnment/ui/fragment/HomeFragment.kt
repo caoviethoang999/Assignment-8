@@ -1,4 +1,4 @@
-package com.example.hoangcv2_assiagnment.fragment
+package com.example.hoangcv2_assiagnment.ui.fragment
 
 import android.os.Bundle
 import android.view.*
@@ -6,47 +6,51 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoangcv2_assiagnment.*
 import com.example.hoangcv2_assiagnment.adapter.CategoryAdapter
 import com.example.hoangcv2_assiagnment.adapter.TopProductAdapter
-import com.example.hoangcv2_assiagnment.api.ProductService
+import com.example.hoangcv2_assiagnment.databinding.FragmentHomeBinding
 import com.example.hoangcv2_assiagnment.model.Category
-import com.example.hoangcv2_assiagnment.model.Product
-import com.example.hoangcv2_assiagnment.viewmodel.ProductRepository
 import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModel
-import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModelFactory
-import kotlinx.android.synthetic.main.fragment_home.*
+import dagger.android.support.DaggerFragment
 import java.util.ArrayList
+import javax.inject.Inject
 
 
-class HomeFragment : Fragment(), OnItemClickListener {
-    var list:MutableList<Category> = ArrayList<Category>()
+class HomeFragment : DaggerFragment(), OnItemClickListener {
+
+    private var list:MutableList<Category> = ArrayList<Category>()
+
+    @Inject
     lateinit var viewModel: ProductViewModel
-    private val productService = ProductService.getInstance()
-    lateinit var topProductAdapter: TopProductAdapter
-    lateinit var categoryAdapter: CategoryAdapter
+
+    private lateinit var topProductAdapter: TopProductAdapter
+
+    private lateinit var categoryAdapter: CategoryAdapter
+
+    private lateinit var binding:FragmentHomeBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appCompatActivity = activity as AppCompatActivity?
-        appCompatActivity?.setSupportActionBar(toolBarHome)
+        appCompatActivity?.setSupportActionBar(binding.toolBarHome)
         val toggle = ActionBarDrawerToggle(
-            activity, drawer_layout, toolBarHome,
+            activity, binding.drawerLayout, binding.toolBarHome,
             R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
-        drawer_layout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         addDataTopProduct()
         addDataCategoryItem()
         errorResponse()
     }
 
-    fun addDataTopProduct() {
-        recylerViewTopProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+    private fun addDataTopProduct() {
+        binding.recylerViewTopProduct.layoutManager = GridLayoutManager(requireContext(), 2)
         topProductAdapter = TopProductAdapter(this)
-        recylerViewTopProduct.addItemDecoration(
+        binding.recylerViewTopProduct.addItemDecoration(
             RecyclerViewProductMargin(
                 2,
                 resources.getDimensionPixelSize(R.dimen.recyclerView_topproduct_marginTop)
@@ -56,15 +60,15 @@ class HomeFragment : Fragment(), OnItemClickListener {
         viewModel.productList.observe(viewLifecycleOwner,{
 
             topProductAdapter.getAll(it)
-            recylerViewTopProduct.adapter = topProductAdapter
+            binding.recylerViewTopProduct.adapter = topProductAdapter
         })
     }
 
-    fun addDataCategoryItem() {
-        recylerViewItem.layoutManager =
+    private fun addDataCategoryItem() {
+        binding.recylerViewItem.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         categoryAdapter = CategoryAdapter(this)
-        recylerViewItem.addItemDecoration(
+        binding.recylerViewItem.addItemDecoration(
             RecyclerViewMargin(
                 1,
                 resources.getDimensionPixelSize(R.dimen.recyclerView_item_marginRight)
@@ -74,10 +78,10 @@ class HomeFragment : Fragment(), OnItemClickListener {
         viewModel.categoryList.observe(viewLifecycleOwner,{
             list=it
             categoryAdapter.getAll(list)
-            recylerViewItem.adapter = categoryAdapter
+            binding.recylerViewItem.adapter = categoryAdapter
         })
     }
-    fun errorResponse(){
+    private fun errorResponse(){
         viewModel.errorMessage.observe(viewLifecycleOwner,{
             Toast.makeText(requireContext(),it, Toast.LENGTH_LONG).show()
         })
@@ -86,10 +90,10 @@ class HomeFragment : Fragment(), OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this, ProductViewModelFactory(ProductRepository(productService))).get(ProductViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding= FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -97,16 +101,16 @@ class HomeFragment : Fragment(), OnItemClickListener {
     }
     override fun onItemClick(position: Int,status:Status) {
         if (status== Status.CATEGORY ) {
-            val recylerFragment = ProductFragment()
+            val recyclerFragment = ProductFragment()
             val bundle = Bundle()
             bundle.putString("name", list[position].categoryName)
-            recylerFragment.setArguments(bundle)
+            recyclerFragment.arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()
-                ?.addToBackStack(null)?.replace(R.id.fragment_container, recylerFragment)?.commit()
+                ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
         }else if (status== Status.DETAIL) {
-            val recylerFragment = DetailFragment()
+            val recyclerFragment = DetailFragment()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.addToBackStack(null)?.replace(R.id.fragment_container, recylerFragment)?.commit()
+                ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
         }
     }
 }

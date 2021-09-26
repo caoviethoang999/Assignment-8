@@ -6,32 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.example.hoangcv2_assiagnment.R
-import kotlinx.android.synthetic.main.elegant_number.view.*
+import com.example.hoangcv2_assiagnment.databinding.ElegantNumberBinding
+
 
 class ElegantNumber : FrameLayout, View.OnClickListener {
+
+    private var binding: ElegantNumberBinding =
+        ElegantNumberBinding.inflate(LayoutInflater.from(context), this, true)
     var count:Int =0
     constructor(context: Context?) : super(context!!) {
     }
     constructor(context: Context?, attrs: AttributeSet?) : super(
         context!!, attrs
     ) {
-        LayoutInflater.from(context).inflate(R.layout.elegant_number, this)
-        btnMinus.setOnClickListener(this)
-        btnPlus.setOnClickListener(this)
+        binding.root
+        binding.btnMinus.setOnClickListener(this)
+        binding.btnPlus.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btnMinus ->
             {
-                if(checkNumber(txtNumber.text.toString())){
+                if(checkNumber(binding.txtNumber.text.toString())){
                     count--
-                    txtNumber.text= count.toString()
+                    binding.txtNumber.text= count.toString()
                 }
             }
             R.id.btnPlus ->{
                 count++
-                txtNumber.text= count.toString()
+                binding.txtNumber.text= count.toString()
             }
         }
     }
@@ -39,6 +43,6 @@ class ElegantNumber : FrameLayout, View.OnClickListener {
         return numberCheck.toInt() >0
     }
     fun getNumber(): String {
-        return txtNumber.text.toString()
+        return binding.txtNumber.text.toString()
     }
 }

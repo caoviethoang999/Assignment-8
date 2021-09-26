@@ -9,7 +9,7 @@
         android:background="@drawable/background_tomato"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".fragment.DetailFragment">
+        tools:context=".ui.fragment.DetailFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBarDetail"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/image_slider"
+            android:id="@+id/imageSliderTest"
             android:layout_width="@dimen/imageSlider_width"
             android:layout_height="@dimen/imageSlider_height"
             app:iss_auto_cycle="true"
@@ -37,7 +37,7 @@
             android:background="@drawable/background_product"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/image_slider">
+            app:layout_constraintTop_toBottomOf="@id/imageSliderTest">
 
             <TextView
                 android:id="@+id/txtTomato"

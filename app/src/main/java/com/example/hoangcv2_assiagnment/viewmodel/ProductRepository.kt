@@ -1,6 +1,5 @@
 package com.example.hoangcv2_assiagnment.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.hoangcv2_assiagnment.api.ProductService
 import com.example.hoangcv2_assiagnment.model.Category
@@ -10,8 +9,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class ProductRepository constructor(private val productService: ProductService) {
+class ProductRepository @Inject constructor(private val productService: ProductService) {
 
     var productList= MutableLiveData<MutableList<Product>>()
 

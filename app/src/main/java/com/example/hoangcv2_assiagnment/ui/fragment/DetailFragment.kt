@@ -1,10 +1,8 @@
-package com.example.hoangcv2_assiagnment.fragment
+package com.example.hoangcv2_assiagnment.ui.fragment
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.hoangcv2_assiagnment.OnItemClickListener
@@ -12,28 +10,30 @@ import com.example.hoangcv2_assiagnment.R
 import com.example.hoangcv2_assiagnment.RecyclerViewMargin
 import com.example.hoangcv2_assiagnment.Status
 import com.example.hoangcv2_assiagnment.adapter.RelatedItemAdapter
-import com.example.hoangcv2_assiagnment.api.ProductService
-import com.example.hoangcv2_assiagnment.model.Product
-import com.example.hoangcv2_assiagnment.viewmodel.ProductRepository
+import com.example.hoangcv2_assiagnment.databinding.FragmentDetailBinding
 import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModel
-import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModelFactory
-import kotlinx.android.synthetic.main.fragment_detail.*
+import dagger.android.support.DaggerFragment
 import java.util.*
+import javax.inject.Inject
 
-class DetailFragment : Fragment(),OnItemClickListener {
+class DetailFragment : DaggerFragment(),OnItemClickListener {
+
+    @Inject
     lateinit var viewModel: ProductViewModel
-    private val productService = ProductService.getInstance()
-    lateinit var list: MutableList<Product>
-    lateinit var relatedItemAdapter: RelatedItemAdapter
+
+    private lateinit var relatedItemAdapter: RelatedItemAdapter
+
+    private lateinit var binding:FragmentDetailBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appCompatActivity = activity as AppCompatActivity?
-        appCompatActivity?.setSupportActionBar(toolBarDetail)
+        appCompatActivity?.setSupportActionBar(binding.toolBarDetail)
         appCompatActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         addData()
         addDataToImageSlider()
-        btnAddCart.setOnClickListener {
-            txtPriceItem.text=elegantNumber.getNumber()
+        binding.btnAddCart.setOnClickListener {
+            binding.txtPriceItem.text=binding.elegantNumber.getNumber()
 //            var sum=0
 //            for (i in 0 until list.size) {
 //                sum += list.get(i).price!!
@@ -43,17 +43,17 @@ class DetailFragment : Fragment(),OnItemClickListener {
     }
 
 
-    fun addDataToImageSlider(){
+    private fun addDataToImageSlider(){
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel(R.drawable.tomato))
         imageList.add(SlideModel(R.drawable.grapes))
         imageList.add(SlideModel(R.drawable.pumpkins))
-        image_slider.setImageList(imageList)
+        binding.imageSliderTest.setImageList(imageList)
     }
-    fun addData() {
-        recylerViewProduct.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+    private fun addData() {
+        binding.recylerViewProduct.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         relatedItemAdapter = RelatedItemAdapter(this)
-        recylerViewProduct.addItemDecoration(
+        binding.recylerViewProduct.addItemDecoration(
             RecyclerViewMargin(
                 1,
                 resources.getDimensionPixelSize(R.dimen.recyclerView_item_marginRight)
@@ -62,7 +62,7 @@ class DetailFragment : Fragment(),OnItemClickListener {
         viewModel.getProduct()
         viewModel.productList.observe(viewLifecycleOwner,{
             relatedItemAdapter.getAll(it)
-            recylerViewProduct.adapter = relatedItemAdapter
+            binding.recylerViewProduct.adapter = relatedItemAdapter
         })
 //        var sum=0
 //        for (i in 0 until list.size) {
@@ -74,10 +74,10 @@ class DetailFragment : Fragment(),OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this, ProductViewModelFactory(ProductRepository(productService))).get(ProductViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        binding= FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -97,9 +97,9 @@ class DetailFragment : Fragment(),OnItemClickListener {
 
     override fun onItemClick(position: Int,status:Status) {
         if (status==Status.DETAIL) {
-            val recylerFragment = DetailFragment()
+            val recyclerFragment = DetailFragment()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.addToBackStack(null)?.replace(R.id.fragment_container, recylerFragment)?.commit()
+                ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
         }
     }
 }

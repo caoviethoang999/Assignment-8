@@ -1,74 +1,76 @@
-package com.example.hoangcv2_assiagnment.fragment
+package com.example.hoangcv2_assiagnment.ui.fragment
 
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.hoangcv2_assiagnment.OnItemClickListener
-import com.example.hoangcv2_assiagnment.R
-import com.example.hoangcv2_assiagnment.RecyclerViewProductMargin
-import com.example.hoangcv2_assiagnment.Status
+import com.example.hoangcv2_assiagnment.*
 import com.example.hoangcv2_assiagnment.adapter.ProductAdapter
-import com.example.hoangcv2_assiagnment.api.ProductService
-import com.example.hoangcv2_assiagnment.viewmodel.ProductRepository
+import com.example.hoangcv2_assiagnment.databinding.FragmentProductBinding
 import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModel
-import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModelFactory
-import kotlinx.android.synthetic.main.fragment_product.*
-import kotlinx.android.synthetic.main.fragment_product.recylerViewProduct
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-class ProductFragment : Fragment(),OnItemClickListener {
+class ProductFragment : DaggerFragment(),OnItemClickListener {
+
+    @Inject
     lateinit var viewModel: ProductViewModel
-    private val productService = ProductService.getInstance()
-    lateinit var productAdapter: ProductAdapter
-    var title:String?=null
+
+    private lateinit var productAdapter: ProductAdapter
+
+    private var title:String?=null
+
+    private lateinit var binding:FragmentProductBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val appCompatActivity = activity as AppCompatActivity?
-        appCompatActivity?.setSupportActionBar(toolBarProduct)
+        appCompatActivity?.setSupportActionBar(binding.toolBarProduct)
         appCompatActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         passData()
         addDataVegetables()
         addDataFruits()
     }
 
-    fun passData(){
+    private fun passData(){
         val bundle = this.arguments
-        title = bundle!!.getString("name")
-        txtCategories.text=title
+        if (bundle != null) {
+            title = bundle.getString("name")
+        }
+        binding.txtCategories.text=title
     }
-    fun addDataVegetables() {
-        recylerViewProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+    private fun addDataVegetables() {
+        binding.recylerViewProduct.layoutManager = GridLayoutManager(requireContext(), 2)
         productAdapter = ProductAdapter(this)
-        recylerViewProduct.addItemDecoration(
+        binding.recylerViewProduct.addItemDecoration(
             RecyclerViewProductMargin(
                 2,
                 resources.getDimensionPixelSize(R.dimen.recyclerView_product_marginTop)
             )
         )
-        if(title.equals("Vegetables")) {
-            viewModel.getProductByCategory(3)
+        if(title.equals(Constrants.CATEGORY_VEGETABLES)) {
+            viewModel.getProductByCategory(1)
             viewModel.productList.observe(viewLifecycleOwner, {
                 productAdapter.getAll(it)
-                recylerViewProduct.adapter = productAdapter
+                binding.recylerViewProduct.adapter = productAdapter
             })
         }
     }
-    fun addDataFruits() {
-        recylerViewProduct.layoutManager = GridLayoutManager(requireContext(), 2)
+    private fun addDataFruits() {
+        binding.recylerViewProduct.layoutManager = GridLayoutManager(requireContext(), 2)
         productAdapter = ProductAdapter(this)
-        recylerViewProduct.addItemDecoration(
+        binding.recylerViewProduct.addItemDecoration(
             RecyclerViewProductMargin(
                 2,
                 resources.getDimensionPixelSize(R.dimen.recyclerView_product_marginTop)
             )
         )
-        if(title.equals("Fruits")) {
+        if(title.equals(Constrants.CATEGORY_FRUITS)) {
             viewModel.getProductByCategory(2)
             viewModel.productList.observe(viewLifecycleOwner, {
                 productAdapter.getAll(it)
-                recylerViewProduct.adapter = productAdapter
+                binding.recylerViewProduct.adapter = productAdapter
             })
         }
     }
@@ -76,10 +78,10 @@ class ProductFragment : Fragment(),OnItemClickListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         setHasOptionsMenu(true)
-        viewModel = ViewModelProvider(this, ProductViewModelFactory(ProductRepository(productService))).get(ProductViewModel::class.java)
-        return inflater.inflate(R.layout.fragment_product, container, false)
+        binding= FragmentProductBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -98,9 +100,9 @@ class ProductFragment : Fragment(),OnItemClickListener {
 
     override fun onItemClick(position: Int,status:Status) {
         if (status== Status.DETAIL) {
-            val recylerFragment = DetailFragment()
+            val recyclerFragment = DetailFragment()
             activity?.supportFragmentManager?.beginTransaction()
-                ?.addToBackStack(null)?.replace(R.id.fragment_container, recylerFragment)?.commit()
+                ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
         }
     }
 }
