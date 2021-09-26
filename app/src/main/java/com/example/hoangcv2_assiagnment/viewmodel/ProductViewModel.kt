@@ -10,18 +10,21 @@ import com.example.hoangcv2_assiagnment.model.Product
 import javax.inject.Inject
 
 
-class ProductViewModel @Inject constructor(private val mainRepository: ProductRepository) : ViewModel() {
+class ProductViewModel @Inject constructor(private val mainRepository: ProductRepository) :
+    ViewModel() {
 
 
-    var productList=MutableLiveData<MutableList<Product>>()
+    var productList = MutableLiveData<MutableList<Product>>()
     var categoryList = MutableLiveData<MutableList<Category>>()
     var errorMessage = mainRepository.handleError()
     fun getProduct() {
-        productList=mainRepository.getProduct()
+        productList = mainRepository.getProduct()
     }
-    fun getCategory(){
-        categoryList=mainRepository.getCategory()
+
+    fun getCategory() {
+        categoryList = mainRepository.getCategory()
     }
+
     fun getProductByCategory(categoryId: Int) {
         productList = mainRepository.getProductByCategory(categoryId)
     }

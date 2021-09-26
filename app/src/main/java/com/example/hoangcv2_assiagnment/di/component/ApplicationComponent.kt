@@ -22,7 +22,7 @@ import javax.inject.Singleton
         ViewModelModule::class,
         AndroidSupportInjectionModule::class]
 )
-interface ApplicationComponent: AndroidInjector<DaggerApplication> {
+interface ApplicationComponent : AndroidInjector<DaggerApplication> {
 
     @Component.Builder
     interface Builder {

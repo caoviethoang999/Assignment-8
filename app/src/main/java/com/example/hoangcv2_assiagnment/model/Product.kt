@@ -13,13 +13,13 @@ data class Product(
     @SerializedName("product_quantity")
     var productQuantity: Int,
     @SerializedName("product_price")
-    var productPrice:Double,
+    var productPrice: Double,
     @SerializedName("product_image")
-    var productImage:String,
+    var productImage: String,
     @SerializedName("product_background")
-    var productBackground:String,
+    var productBackground: String,
     @SerializedName("isFavorite")
-    var isFavorite:Boolean,
+    var isFavorite: Boolean,
     @SerializedName("category_id")
     override var categoryId: Int,
-):CategoryProduct(categoryId),Serializable
+) : CategoryProduct(categoryId), Serializable

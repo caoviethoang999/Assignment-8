@@ -7,12 +7,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hoangcv2_assiagnment.*
+import com.example.hoangcv2_assiagnment.ImageRequestAsk
+import com.example.hoangcv2_assiagnment.OnItemClickListener
+import com.example.hoangcv2_assiagnment.R
+import com.example.hoangcv2_assiagnment.Status
 import com.example.hoangcv2_assiagnment.model.Category
 import java.util.*
 
 
-class CategoryAdapter(private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
+class CategoryAdapter(private var onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<CategoryAdapter.ItemViewHolder>() {
     private var list: MutableList<Category>
     fun getAll(list: MutableList<Category>?) {
         this.list = list!!
@@ -29,11 +33,11 @@ class CategoryAdapter(private var onItemClickListener: OnItemClickListener) : Re
         holder.txtTitle1.text = itemCategory.categoryName
         val photo = ImageRequestAsk().execute(itemCategory.categoryImage).get()!!
         holder.imgViewItem.setImageBitmap(photo)
-        val background =ImageRequestAsk().execute(itemCategory.categoryBackground).get()!!
-        holder.imgViewItem.background=
-            BitmapDrawable(holder.itemView.context.resources,background)
+        val background = ImageRequestAsk().execute(itemCategory.categoryBackground).get()!!
+        holder.imgViewItem.background =
+            BitmapDrawable(holder.itemView.context.resources, background)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(holder.adapterPosition,Status.CATEGORY)
+            onItemClickListener.onItemClick(holder.adapterPosition, Status.CATEGORY)
         }
     }
 

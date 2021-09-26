@@ -1,6 +1,5 @@
 package com.example.hoangcv2_assiagnment.di.module
 
-import com.example.hoangcv2_assiagnment.ui.activity.MainActivity
 import com.example.hoangcv2_assiagnment.ui.fragment.DetailFragment
 import com.example.hoangcv2_assiagnment.ui.fragment.HomeFragment
 import com.example.hoangcv2_assiagnment.ui.fragment.ProductFragment

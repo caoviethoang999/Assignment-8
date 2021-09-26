@@ -16,7 +16,8 @@ import com.example.hoangcv2_assiagnment.model.Product
 import java.util.*
 
 
-class ProductAdapter(private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
+class ProductAdapter(private var onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<ProductAdapter.ItemViewHolder>() {
     private var list: MutableList<Product>
     fun getAll(list: MutableList<Product>?) {
         this.list = list!!
@@ -31,13 +32,14 @@ class ProductAdapter(private var onItemClickListener: OnItemClickListener) : Rec
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val product: Product = list[position]
         holder.txtTitle1.text = product.productName
-        holder.txtPrice.text = "$"+product.productPrice.toString()
-        val photo =ImageRequestAsk().execute(product.productImage).get()!!
+        holder.txtPrice.text = "$" + product.productPrice.toString()
+        val photo = ImageRequestAsk().execute(product.productImage).get()!!
         holder.imgViewItem.setImageBitmap(photo)
-        val background =ImageRequestAsk().execute(product.productBackground).get()!!
-        holder.backgroundItem.background=BitmapDrawable(holder.itemView.context.resources,background)
+        val background = ImageRequestAsk().execute(product.productBackground).get()!!
+        holder.backgroundItem.background =
+            BitmapDrawable(holder.itemView.context.resources, background)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(holder.adapterPosition,Status.DETAIL)
+            onItemClickListener.onItemClick(holder.adapterPosition, Status.DETAIL)
         }
     }
 

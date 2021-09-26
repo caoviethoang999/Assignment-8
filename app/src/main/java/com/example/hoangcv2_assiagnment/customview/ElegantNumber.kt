@@ -13,9 +13,11 @@ class ElegantNumber : FrameLayout, View.OnClickListener {
 
     private var binding: ElegantNumberBinding =
         ElegantNumberBinding.inflate(LayoutInflater.from(context), this, true)
-    var count:Int =0
+    var count: Int = 0
+
     constructor(context: Context?) : super(context!!) {
     }
+
     constructor(context: Context?, attrs: AttributeSet?) : super(
         context!!, attrs
     ) {
@@ -25,23 +27,24 @@ class ElegantNumber : FrameLayout, View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        when(v!!.id){
-            R.id.btnMinus ->
-            {
-                if(checkNumber(binding.txtNumber.text.toString())){
+        when (v!!.id) {
+            R.id.btnMinus -> {
+                if (checkNumber(binding.txtNumber.text.toString())) {
                     count--
-                    binding.txtNumber.text= count.toString()
+                    binding.txtNumber.text = count.toString()
                 }
             }
-            R.id.btnPlus ->{
+            R.id.btnPlus -> {
                 count++
-                binding.txtNumber.text= count.toString()
+                binding.txtNumber.text = count.toString()
             }
         }
     }
-    fun checkNumber(numberCheck:String):Boolean{
-        return numberCheck.toInt() >0
+
+    fun checkNumber(numberCheck: String): Boolean {
+        return numberCheck.toInt() > 0
     }
+
     fun getNumber(): String {
         return binding.txtNumber.text.toString()
     }

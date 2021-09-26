@@ -8,7 +8,7 @@ import com.example.hoangcv2_assiagnment.R
 import com.example.hoangcv2_assiagnment.databinding.ButtonCustomViewBinding
 
 class ButtonCustomView : FrameLayout {
-    private var binding:ButtonCustomViewBinding =
+    private var binding: ButtonCustomViewBinding =
         ButtonCustomViewBinding.inflate(LayoutInflater.from(context), this, true)
 
     constructor(context: Context?) : super(context!!) {}

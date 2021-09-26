@@ -13,9 +13,10 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
     private var retrofitService: ProductService? = null
+
     @Singleton
     @Provides
-    fun getInstance() : ProductService {
+    fun getInstance(): ProductService {
         val interceptor = HttpLoggingInterceptor()
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()

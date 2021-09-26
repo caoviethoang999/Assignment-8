@@ -5,7 +5,6 @@ import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hoangcv2_assiagnment.*
@@ -15,13 +14,13 @@ import com.example.hoangcv2_assiagnment.databinding.FragmentHomeBinding
 import com.example.hoangcv2_assiagnment.model.Category
 import com.example.hoangcv2_assiagnment.viewmodel.ProductViewModel
 import dagger.android.support.DaggerFragment
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 
 class HomeFragment : DaggerFragment(), OnItemClickListener {
 
-    private var list:MutableList<Category> = ArrayList<Category>()
+    private var list: MutableList<Category> = ArrayList<Category>()
 
     @Inject
     lateinit var viewModel: ProductViewModel
@@ -30,7 +29,7 @@ class HomeFragment : DaggerFragment(), OnItemClickListener {
 
     private lateinit var categoryAdapter: CategoryAdapter
 
-    private lateinit var binding:FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,7 +56,7 @@ class HomeFragment : DaggerFragment(), OnItemClickListener {
             )
         )
         viewModel.getProduct()
-        viewModel.productList.observe(viewLifecycleOwner,{
+        viewModel.productList.observe(viewLifecycleOwner, {
 
             topProductAdapter.getAll(it)
             binding.recylerViewTopProduct.adapter = topProductAdapter
@@ -75,15 +74,16 @@ class HomeFragment : DaggerFragment(), OnItemClickListener {
             )
         )
         viewModel.getCategory()
-        viewModel.categoryList.observe(viewLifecycleOwner,{
-            list=it
+        viewModel.categoryList.observe(viewLifecycleOwner, {
+            list = it
             categoryAdapter.getAll(list)
             binding.recylerViewItem.adapter = categoryAdapter
         })
     }
-    private fun errorResponse(){
-        viewModel.errorMessage.observe(viewLifecycleOwner,{
-            Toast.makeText(requireContext(),it, Toast.LENGTH_LONG).show()
+
+    private fun errorResponse() {
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         })
     }
 
@@ -92,22 +92,23 @@ class HomeFragment : DaggerFragment(), OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        binding= FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_shopping, menu)
     }
-    override fun onItemClick(position: Int,status:Status) {
-        if (status== Status.CATEGORY ) {
+
+    override fun onItemClick(position: Int, status: Status) {
+        if (status == Status.CATEGORY) {
             val recyclerFragment = ProductFragment()
             val bundle = Bundle()
             bundle.putString("name", list[position].categoryName)
             recyclerFragment.arguments = bundle
             activity?.supportFragmentManager?.beginTransaction()
                 ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
-        }else if (status== Status.DETAIL) {
+        } else if (status == Status.DETAIL) {
             val recyclerFragment = DetailFragment()
             activity?.supportFragmentManager?.beginTransaction()
                 ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()

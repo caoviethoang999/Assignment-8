@@ -5,7 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import javax.inject.Inject
 import javax.inject.Provider
 
-class ProductViewModelFactory @Inject constructor(private var creators: MutableMap<Class<out ViewModel>, Provider<ViewModel>>) : ViewModelProvider.Factory {
+class ProductViewModelFactory @Inject constructor(private var creators: MutableMap<Class<out ViewModel>, Provider<ViewModel>>) :
+    ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

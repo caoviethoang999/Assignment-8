@@ -16,7 +16,8 @@ import com.example.hoangcv2_assiagnment.model.Product
 import java.util.*
 
 
-class RelatedItemAdapter(private var onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<RelatedItemAdapter.ItemViewHolder>() {
+class RelatedItemAdapter(private var onItemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<RelatedItemAdapter.ItemViewHolder>() {
     private var list: MutableList<Product>
     fun getAll(list: MutableList<Product>?) {
         this.list = list!!
@@ -31,16 +32,16 @@ class RelatedItemAdapter(private var onItemClickListener: OnItemClickListener) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val product: Product = list[position]
         holder.txtTitle1.text = product.productName
-        holder.txtPrice.text = "$"+product.productPrice.toString()
+        holder.txtPrice.text = "$" + product.productPrice.toString()
         val photo = ImageRequestAsk().execute(product.productImage).get()!!
         holder.imgViewItem.setImageBitmap(photo)
-        val background =ImageRequestAsk().execute(product.productBackground).get()!!
-        holder.backgroundItem.background=
-            BitmapDrawable(holder.itemView.context.resources,background)
+        val background = ImageRequestAsk().execute(product.productBackground).get()!!
+        holder.backgroundItem.background =
+            BitmapDrawable(holder.itemView.context.resources, background)
         holder.itemView.setOnClickListener {
-            onItemClickListener.onItemClick(position,Status.DETAIL)
+            onItemClickListener.onItemClick(position, Status.DETAIL)
         }
-        holder.imgViewItem.setOnLongClickListener{
+        holder.imgViewItem.setOnLongClickListener {
             list.remove(product)
             notifyDataSetChanged()
             true

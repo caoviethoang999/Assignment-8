@@ -11,6 +11,7 @@ data class Category(
     @SerializedName("category_image")
     var categoryImage: String,
     @SerializedName("category_background")
-    var categoryBackground:String
-    ):Serializable
+    var categoryBackground: String
+) : Serializable
+
 abstract class CategoryProduct(open var categoryId: Int)

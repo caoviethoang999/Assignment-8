@@ -13,13 +13,13 @@ import javax.inject.Inject
 
 class ProductRepository @Inject constructor(private val productService: ProductService) {
 
-    var productList= MutableLiveData<MutableList<Product>>()
+    var productList = MutableLiveData<MutableList<Product>>()
 
     var categoryList = MutableLiveData<MutableList<Category>>()
 
     var errorMessage = MutableLiveData<String>()
 
-    fun getProduct():MutableLiveData<MutableList<Product>>{
+    fun getProduct(): MutableLiveData<MutableList<Product>> {
         productService.getProduct()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -41,7 +41,7 @@ class ProductRepository @Inject constructor(private val productService: ProductS
         return productList
     }
 
-    fun getCategory():MutableLiveData<MutableList<Category>>{
+    fun getCategory(): MutableLiveData<MutableList<Category>> {
         productService.getCategory()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -66,7 +66,7 @@ class ProductRepository @Inject constructor(private val productService: ProductS
         return categoryList
     }
 
-    fun getProductByCategory(categoryId:Int):MutableLiveData<MutableList<Product>>{
+    fun getProductByCategory(categoryId: Int): MutableLiveData<MutableList<Product>> {
         productService.getProductByCategory(categoryId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -91,7 +91,8 @@ class ProductRepository @Inject constructor(private val productService: ProductS
             })
         return productList
     }
-    fun handleError():MutableLiveData<String>{
+
+    fun handleError(): MutableLiveData<String> {
         return errorMessage
     }
 }

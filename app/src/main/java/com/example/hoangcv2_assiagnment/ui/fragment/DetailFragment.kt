@@ -16,14 +16,14 @@ import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
 
-class DetailFragment : DaggerFragment(),OnItemClickListener {
+class DetailFragment : DaggerFragment(), OnItemClickListener {
 
     @Inject
     lateinit var viewModel: ProductViewModel
 
     private lateinit var relatedItemAdapter: RelatedItemAdapter
 
-    private lateinit var binding:FragmentDetailBinding
+    private lateinit var binding: FragmentDetailBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +33,7 @@ class DetailFragment : DaggerFragment(),OnItemClickListener {
         addData()
         addDataToImageSlider()
         binding.btnAddCart.setOnClickListener {
-            binding.txtPriceItem.text=binding.elegantNumber.getNumber()
+            binding.txtPriceItem.text = binding.elegantNumber.getNumber()
 //            var sum=0
 //            for (i in 0 until list.size) {
 //                sum += list.get(i).price!!
@@ -43,15 +43,17 @@ class DetailFragment : DaggerFragment(),OnItemClickListener {
     }
 
 
-    private fun addDataToImageSlider(){
+    private fun addDataToImageSlider() {
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel(R.drawable.tomato))
         imageList.add(SlideModel(R.drawable.grapes))
         imageList.add(SlideModel(R.drawable.pumpkins))
         binding.imageSliderTest.setImageList(imageList)
     }
+
     private fun addData() {
-        binding.recylerViewProduct.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        binding.recylerViewProduct.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         relatedItemAdapter = RelatedItemAdapter(this)
         binding.recylerViewProduct.addItemDecoration(
             RecyclerViewMargin(
@@ -60,7 +62,7 @@ class DetailFragment : DaggerFragment(),OnItemClickListener {
             )
         )
         viewModel.getProduct()
-        viewModel.productList.observe(viewLifecycleOwner,{
+        viewModel.productList.observe(viewLifecycleOwner, {
             relatedItemAdapter.getAll(it)
             binding.recylerViewProduct.adapter = relatedItemAdapter
         })
@@ -76,7 +78,7 @@ class DetailFragment : DaggerFragment(),OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        binding= FragmentDetailBinding.inflate(inflater, container, false)
+        binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -95,8 +97,8 @@ class DetailFragment : DaggerFragment(),OnItemClickListener {
         }
     }
 
-    override fun onItemClick(position: Int,status:Status) {
-        if (status==Status.DETAIL) {
+    override fun onItemClick(position: Int, status: Status) {
+        if (status == Status.DETAIL) {
             val recyclerFragment = DetailFragment()
             activity?.supportFragmentManager?.beginTransaction()
                 ?.addToBackStack(null)?.replace(R.id.fragment_container, recyclerFragment)?.commit()
